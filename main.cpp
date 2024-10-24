@@ -1,23 +1,23 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <list>
+#include <set>
 #include "Goat.h"
 using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 
-int select_goat(list<Goat> trip);
-void delete_goat(list<Goat> &trip);
-void add_goat(list<Goat> &trip, string [], string []);
-void display_trip(list<Goat> trip);
+int select_goat(set<Goat> trip);
+void delete_goat(set<Goat> &trip);
+void add_goat(set<Goat> &trip, string [], string []);
+void display_trip(set<Goat> trip);
 int main_menu();
 //the main function
 int main() {
     srand(time(0));
     bool again;
     int choice = 0;
-    list<Goat> trip;
+    set<Goat> trip;
 
     // read & populate arrays for names and colors
     ifstream fin("names.txt");
@@ -78,23 +78,23 @@ int main_menu()
     return choice;
 }
 //the add_goat function
-void add_goat(list<Goat> &trip, string names[], string colors[])
+void add_goat(set<Goat> &trip, string names[], string colors[])
 {
     //Declares and initilizes variables
     int randName = rand() % SZ_COLORS+1;
     int randColor = rand() % SZ_COLORS+1;
     int randAge = rand() % MAX_AGE;
     //pushs the new goat to the end of the list
-    trip.push_back(Goat(names[randName], randAge, colors[randColor]));
+    trip.insert(Goat(names[randName], randAge, colors[randColor]));
     cout << endl;
 }
 //the delete_goat function
-void delete_goat(list<Goat> &trip)
+void delete_goat(set<Goat> &trip)
 {
     //Declares and initilizes variables
     int count = 1;
     int goatIndex;
-    list<Goat>::iterator it = trip.begin();
+    set<Goat>::iterator it = trip.begin();
     //Prints list with count for each goat
     cout << "Select the goat you wish to delete from the list:" << endl;
     for (Goat theGoat : trip)
@@ -125,7 +125,7 @@ void delete_goat(list<Goat> &trip)
     cout << endl;
 }
 //the display_trip function
-void display_trip(list<Goat> trip)
+void display_trip(set<Goat> trip)
 {
     //Prints list
     cout << "Printing List:" << endl;
